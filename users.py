@@ -1,20 +1,20 @@
 import pyodbc
+from conexion import cursor
 
-try:
-    connection = pyodbc.connect("DRIVER={SQL SERVER}; SERVER=KuVe-PC\SQLEXPRESS;Trusted_Connection=yes", autocommit = True)
-    cursor = connection.cursor()
-    cursor.execute("SELECT name FROM master.dbo.sysdatabases")
-    bases = cursor.fetchall()
-    base_list = []
-    for i in bases:
-        base_list.append(i[0])
-    if "Users" not in base_list:
-        cursor.execute("CREATE DATABASE Users")
+def MakeUsersBD():
+    try:
+        cursor.execute("SELECT name FROM master.dbo.sysdatabases")
+        bases = cursor.fetchall()
+        base_list = []
+        for i in bases:
+            base_list.append(i[0])
+        if "Users" not in base_list:
+            cursor.execute("CREATE DATABASE Users")
+            cursor.execute("USE Users")
+            cursor.execute("CREATE TABLE usuarios(user_id INT IDENTITY(1,1) PRIMARY KEY, username VARCHAR(255) COLLATE SQL_Latin1_General_CP1_CS_AS NOT NULL, password VARCHAR(255) COLLATE SQL_Latin1_General_CP1_CS_AS NOT NULL)")
         cursor.execute("USE Users")
-        cursor.execute("CREATE TABLE usuarios(user_id INT IDENTITY(1,1) PRIMARY KEY, username VARCHAR(255), password VARCHAR(255))")
-    cursor.execute("USE Users")
-except Exception as ex:
-    print(ex)
+    except Exception as ex:
+        print(ex)
 
 def Register(user, password):
     userinfo = [user,password]
