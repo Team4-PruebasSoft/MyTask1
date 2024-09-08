@@ -15,3 +15,13 @@ try:
     cursor.execute("USE Users")
 except Exception as ex:
     print(ex)
+
+def Register(user, password):
+    userinfo = [user,password]
+    cursor.execute("SELECT * FROM usuarios WHERE username=? AND password =?", userinfo)
+    res = cursor.fetchone()
+    if res is None:
+        cursor.execute("INSERT INTO usuarios (username,password) VALUES (?,?)", userinfo)
+        print("REGISTRO EXITOSO")
+    else:
+        print("USUARIO YA REGISTRADO")
