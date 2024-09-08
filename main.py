@@ -5,7 +5,6 @@ import datetime
 def main():
 
     MakeUsersBD()
-    flag = True
 
     while True:
         solicitud = input("Selecciona una opción (1 para login, 2 para registro): ")
@@ -24,12 +23,12 @@ def main():
             password = input("CONTRASEÑA: ")
             Register(username,password)
         else:
-            print("Selecciona un número correcto (1 o 2). Inténtalo de nuevo.")
+            print("Opción no válida, inténtelo de nuevo.")
 
     MakeTareasBD()
     if authentication:
         while True:
-            menu = int(input("Selecciona una opción (1 para crear una tarea, 2 para ver las tareas, 3 para actualizar una tarea, 4 para eliminar una tarea, 5 para cambiar estado de una tarea, 6 para salir): "))
+            menu = int(input("Selecciona una opción (1 para crear una tarea, 2 para ver las tareas, 3 para actualizar una tarea, 4 para eliminar una tarea, 5 para cambiar estado de una tarea, 6 para busqueda avanzada, 7 para salir): "))
 
             if menu == 1:
                 title = input("Titulo: ")
@@ -79,13 +78,38 @@ def main():
                 new_status = input("Ingresa el estado nuevo de la tarea: ")
                 UpdateIssueStatus(id_issue,new_status)
 
-
             elif menu == 6:
+                while True:
+                    filter_option = int(input("Selecciona una opción para filtrar las tareas (1 para filtrar por título, 2 por estado, 3 por etiqueta, 4 por rango de fechas, 5 para salir): "))
+                    if filter_option == 1:
+                        title = input("Ingrese el título de la tarea a buscar: ")
+                        FilterIssuesByTitle(title)
+                    elif filter_option == 2:
+                        status = input("Ingrese el estado de la tarea (pendiente, en progreso, completada): ")
+                        FilterIssuesByStatus(status)
+                    elif filter_option == 3:
+                        tag = input("Ingrese la etiqueta: ")
+                        FilterIssuesByTag(tag)
+                    elif filter_option == 4:
+                        start_date = input("Ingrese la fecha de inicio del rango (YYYY-MM-DD): ")
+                        end_date = input("Ingrese la fecha de fin del rango (YYYY-MM-DD): ")
+                        try:
+                            format_start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
+                            format_end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
+                            FilterIssuesByDateRange(format_start_date, format_end_date)
+                        except ValueError:
+                            print("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.")
+                    elif filter_option == 5:
+                        break
+                    else:
+                        print("Opción no válida, inténtelo de nuevo.")
+
+            elif menu == 7:
                 print("ADIOS")
                 break
 
             else:
-                print("NUMERO INCORRECTO")
+                print("Opción no válida, inténtelo de nuevo.")
 
 if __name__ == "__main__":
     main()

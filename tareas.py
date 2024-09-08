@@ -56,3 +56,39 @@ def DeleteIssue(id_issue):
 
 def UpdateIssueStatus(id_issue,new_status):
     cursor.execute("UPDATE issues SET estado=? WHERE id_tarea =?", new_status, id_issue)
+
+def FilterIssuesByTitle(title):
+    cursor.execute("SELECT * FROM issues WHERE titulo LIKE ?", '%' + title + '%')
+    result = cursor.fetchall()
+    if result:
+        for i in result:
+            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+    else:
+        print(f"No se encontraron tareas con el título '{title}'")
+
+def FilterIssuesByStatus(status):
+    cursor.execute("SELECT * FROM issues WHERE estado=?", status)
+    result = cursor.fetchall()
+    if result:
+        for i in result:
+            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+    else:
+        print(f"No se encontraron tareas con estado '{status}'")
+
+def FilterIssuesByTag(tag):
+    cursor.execute("SELECT * FROM issues WHERE etiqueta=?", tag)
+    result = cursor.fetchall()
+    if result:
+        for i in result:
+            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+    else:
+        print(f"No se encontraron tareas con la etiqueta '{tag}'")
+
+def FilterIssuesByDateRange(start_date, end_date):
+    cursor.execute("SELECT * FROM issues WHERE vencimiento BETWEEN ? AND ?", start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
+    result = cursor.fetchall()
+    if result:
+        for i in result:
+            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+    else:
+        print(f"No se encontraron tareas entre las fechas '{start_date}' y '{end_date}'")
