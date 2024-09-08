@@ -25,3 +25,10 @@ def Register(user, password):
         print("REGISTRO EXITOSO")
     else:
         print("USUARIO YA REGISTRADO")
+
+def Login (user, password):
+    userinfo = [user,password]
+    cursor.execute("SELECT * FROM usuarios WHERE username=? AND password =?", userinfo)
+    res = cursor.fetchone()
+    if res is not None:
+        return True
