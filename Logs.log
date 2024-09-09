@@ -1,0 +1,2 @@
+2024-09-08 21:05:49,192 - INFO - Conectando a la base de datos.
+2024-09-08 21:05:49,193 - ERROR - Error al conectar a la base de datos: ('01000', "[01000] [unixODBC][Driver Manager]Can't open lib 'SQL SERVER' : file not found (0) (SQLDriverConnect)")

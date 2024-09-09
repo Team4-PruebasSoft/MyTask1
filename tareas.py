@@ -1,38 +1,49 @@
 import pyodbc
-from conexion import cursor
+from conexion import cursor 
+import logging
+import logger_config
 
 def MakeTareasBD():
-    try:
+    try: 
+        logging.info("Buscando base de datos llamada 'Tareas'.")
         cursor.execute("SELECT name FROM master.dbo.sysdatabases")
         bases = cursor.fetchall()
         base_list = []
         for i in bases:
             base_list.append(i[0])
-        if "Tareas" not in base_list:
+        if "Tareas" not in base_list: 
+            logging.info("Creando base de datos 'Tareas' ya que no se encuentra creada.")
             cursor.execute("CREATE DATABASE Tareas")
             cursor.execute("USE Tareas")
             cursor.execute("CREATE TABLE issues(id_tarea INT IDENTITY(1,1) PRIMARY KEY, titulo VARCHAR(255), descripcion VARCHAR(255), vencimiento DATE, etiqueta VARCHAR(255), estado VARCHAR(255))")
         cursor.execute("USE Tareas")
     except Exception as ex:
-        print(ex)
+        logging.error(f"Error al buscar y/o crear la base de datos 'Tareas'.: {ex}")
+        exit()
 
-def MakeIssue(titulo,desc,date,tag):
+def MakeIssue(titulo,desc,date,tag): 
     fecha = date.strftime("%Y-%m-%d")
-    issue_info = [titulo,desc,fecha,tag,"pendiente"]
-    cursor.execute("INSERT INTO issues (titulo,descripcion,vencimiento,etiqueta,estado) VALUES (?,?,?,?,?)", issue_info)
-    print("TAREA AGREGADA CORRECTAMENTE")
-
-def ViewIssue():
-    cursor.execute("SELECT * FROM issues")
-    result = cursor.fetchall()
-    if len(result) != 0:
-        print("Tareas:")
-        for i in result:
-            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiquieta: {i[4]}, Estado: {i[5]}.")  
-    else:
-        print("No tienes tareas")
-
-def UpdateIssueTitle(id_issue,name):
+    issue_info = [titulo,desc,fecha,tag,"pendiente"] 
+    try: 
+        cursor.execute("INSERT INTO issues (titulo,descripcion,vencimiento,etiqueta,estado) VALUES (?,?,?,?,?)", issue_info) 
+        print("TAREA AGREGADA CORRECTAMENTE") 
+    except Exception as ex: 
+        logging.error(f"Error al agregar la tarea: {ex}") 
+        print("ERROR AL AGREGAR LA TAREA")
+def ViewIssue(): 
+    try:
+        cursor.execute("SELECT * FROM issues")
+        result = cursor.fetchall()
+        if len(result) != 0:
+            print("Tareas:")
+            for i in result:
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiquieta: {i[4]}, Estado: {i[5]}.")  
+        else:
+            print("No tienes tareas")
+    except Exception as ex:
+        logging.error(f"Error al visualizar las tareas: {ex}")
+        print("ERROR AL VISUALIZAR LAS TAREAS")
+def UpdateIssueTitle(id_issue,name): 
     cursor.execute("UPDATE issues SET titulo=? WHERE id_tarea =?", name, id_issue)
 
 def UpdateIssueDesc(id_issue,desc):
