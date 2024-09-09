@@ -30,6 +30,7 @@ def main():
             print("Opción no válida, inténtelo de nuevo.") 
             logging.warning("Ingreso de opción no válida en el menú de inicio de sesión.")
     MakeTareasBD()
+    UpdateExpiredIssues()
     if authentication:
         while True: 
             logging.info("Ingreso al menú de tareas.")
@@ -39,7 +40,7 @@ def main():
                 title = input("Titulo: ")
                 description = input("Descripción: ")
                 date = input("Fecha de vencimiento(YYYY-MM-DD): ")
-                tag = input("Etiquieta: ")
+                tag = input("Etiqueta: ")
                 try:
                     fecha = datetime.datetime.strptime(date, "%Y-%m-%d").date()
                 except ValueError: 

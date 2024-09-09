@@ -2,6 +2,7 @@ import pyodbc
 from conexion import cursor 
 import logging
 import logger_config
+import datetime
 
 def MakeTareasBD():
     try: 
@@ -37,7 +38,7 @@ def ViewIssue():
         if len(result) != 0:
             print("Tareas:")
             for i in result:
-                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiquieta: {i[4]}, Estado: {i[5]}.")  
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")  
         else:
             print("No tienes tareas")
     except Exception as ex:
@@ -143,3 +144,18 @@ def FilterIssuesByDateRange(start_date, end_date):
     except Exception as ex:
         logging.error(f"Error al filtrar las tareas por rango de fechas: {ex}")
         print("ERROR AL FILTRAR LAS TAREAS POR RANGO DE FECHAS")
+
+def UpdateExpiredIssues():
+    try:
+        current_date = datetime.date.today().strftime("%Y-%m-%d")
+        cursor.execute("SELECT id_tarea, vencimiento FROM issues WHERE (estado = 'pendiente' OR estado = 'en progreso') AND vencimiento < ?", current_date)
+        expired_issues = cursor.fetchall()
+        if expired_issues:
+            for issue in expired_issues:
+                cursor.execute("UPDATE issues SET estado = 'atrasado' WHERE id_tarea = ?", issue[0])
+            print(f"Se actualizaron {len(expired_issues)} tarea(s) a 'atrasado'.")
+        else:
+            print("No hay tareas vencidas para actualizar.")
+    except Exception as ex:
+        logging.error(f"Error al actualizar el estado de la tarea EXPIRED: {ex}")
+        print("ERROR AL ACTUALIZAR EL ESTADO DE LA TAREA EXPIRED")

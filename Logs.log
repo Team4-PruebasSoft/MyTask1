@@ -1,2 +1,10 @@
-2024-09-08 21:28:52,025 - INFO - Conectando a la base de datos.
-2024-09-08 21:28:52,027 - ERROR - Error al conectar a la base de datos: ('01000', "[01000] [unixODBC][Driver Manager]Can't open lib 'SQL SERVER' : file not found (0) (SQLDriverConnect)")
+2024-09-09 00:52:45,407 - INFO - Conectando a la base de datos.
+2024-09-09 00:52:45,447 - INFO - Conexión exitosa.
+2024-09-09 00:52:45,449 - INFO - Iniciando la aplicación.
+2024-09-09 00:52:47,602 - INFO - Ingreso a la opción de inicio de sesión.
+2024-09-09 00:52:48,114 - INFO - Inicio de sesión exitoso.
+2024-09-09 00:52:48,115 - INFO - Buscando base de datos llamada 'Tareas'.
+2024-09-09 00:52:48,156 - INFO - Ingreso al menú de tareas.
+2024-09-09 00:52:57,471 - INFO - Ingreso a la opción de creación de tareas.
+2024-09-09 00:53:06,321 - INFO - Ingreso al menú de tareas.
+2024-09-09 00:53:27,103 - INFO - Salida de la aplicación.
