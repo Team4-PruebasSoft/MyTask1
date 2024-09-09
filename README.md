@@ -12,7 +12,6 @@ La aplicación también ofrece un sistema de autenticación que protege el acces
 - Filtrar y buscar tareas por fecha de vencimiento, etiquetas o estado.
 - Gestión de estados de las tareas (pendiente, en progreso, completada).
 - Autenticación con nombre de usuario y contraseña.
-- Archivo de tareas completadas.
 
 ## Instalación
 1. Clona el repositorio:
