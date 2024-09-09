@@ -11,7 +11,7 @@ def main():
         solicitud = input("Selecciona una opción (1 para login, 2 para registro): ")
         if solicitud == '1':
             logging.info("Ingreso a la opción de inicio de sesión.")
-            username = input("NOMBRE DE USUARIO: ")
+            username = input("NOMBRE DE USUARIO: ") 
             password = input("CONTRASEÑA: ")
             authentication = Login(username, password)
             if authentication:
@@ -22,9 +22,17 @@ def main():
                 logging.warning("Inicio de sesión fallada. Usiario no encontrado.")
                 print("Usuario o Contraseña equivocada, intenta de nuevo.")
         elif solicitud == '2': 
-            logging.info("Ingreso a la opción de registro.")
+            logging.info("Ingreso a la opción de registro.") 
             username = input("NOMBRE DE USUARIO: ")
+            while username == "":
+                logging.warning("Nombre de usuario vacío en el registro.")
+                print("Nombre de usuario no puede estar vacío.")
+                username = input("NOMBRE DE USUARIO: ")
             password = input("CONTRASEÑA: ")
+            while password == "":
+                logging.warning("Contraseña vacía en el registro.")
+                print("Contraseña no puede estar vacía.")
+                password = input("CONTRASEÑA: ")
             Register(username,password)
         else:
             print("Opción no válida, inténtelo de nuevo.") 
@@ -38,9 +46,25 @@ def main():
             if menu == 1: 
                 logging.info("Ingreso a la opción de creación de tareas.")
                 title = input("Titulo: ")
+                while title == "": 
+                    logging.warning("Titulo vacío en la creación de tareas.")
+                    print("El título no puede estar vacío.")
+                    title = input("Titulo: ")
                 description = input("Descripción: ")
+                while description == "":
+                    logging.warning("Descripción vacía en la creación de tareas.")
+                    print("La descripción no puede estar vacía.")
+                    description = input
                 date = input("Fecha de vencimiento(YYYY-MM-DD): ")
+                while date == "":
+                    logging.warning("Fecha de vencimiento vacía en la creación de tareas.")
+                    print("La fecha no puede estar vacía.")
+                    date = input("Fecha de vencimiento(YYYY-MM-DD): ")
                 tag = input("Etiqueta: ")
+                while tag == "":
+                    logging.warning("Etiqueta vacía en la creación de tareas.")
+                    print("La etiqueta no puede estar vacía.")
+                    tag = input("Etiqueta: ")
                 try:
                     fecha = datetime.datetime.strptime(date, "%Y-%m-%d").date()
                     MakeIssue(title,description,fecha,tag)
@@ -86,14 +110,23 @@ def main():
                 logging.info("Ingreso a la opción de eliminación de tareas.")
                 id_issue = int(input("Ingresa el ID de la tarea que deseas eliminar: "))
                 DeleteIssue(id_issue)
-
             elif menu == 5:
                 logging.info("Ingreso a la opción de cambio de estado de tareas.")
-                id_issue = int(input("Ingresa el ID del Issue a modificar: "))
-                
-                new_status = input("Ingresa el estado nuevo de la tarea: ")
+                id_issue = int(input("Ingresa el ID del Issue a modificar: ")) 
+                while True: 
+                        user_input = input("Ingresa el ID del Issue a modificar: ")
+                        if user_input.isdigit():
+                            id_issue = int(user_input)
+                            break
+                        else: 
+                            print("Por favor, ingresa un número válido.") 
+                            logging.warning("Ingreso de ID de tarea no válido en cambio de estado de tareas.")
+                new_status = input("Ingresa el estado nuevo de la tarea: ") 
+                while new_status not in ["pendiente", "en progreso", "completada"]:
+                    print("Estado no válido. Por favor, ingresa un estado válido.")
+                    logging.warning("Ingreso de estado no válido en cambio de estado de tareas.")
+                    new_status = input("Ingresa el estado nuevo de la tarea: ")
                 UpdateIssueStatus(id_issue,new_status)
-
             elif menu == 6:
                 logging.info("Ingreso a la opción de búsqueda avanzada.")
                 while True:
