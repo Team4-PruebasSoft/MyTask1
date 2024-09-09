@@ -54,7 +54,7 @@ def main():
                 while description == "":
                     logging.warning("Descripción vacía en la creación de tareas.")
                     print("La descripción no puede estar vacía.")
-                    description = input
+                    description = input("Descripción: ")
                 date = input("Fecha de vencimiento(YYYY-MM-DD): ")
                 while date == "":
                     logging.warning("Fecha de vencimiento vacía en la creación de tareas.")
@@ -112,7 +112,6 @@ def main():
                 DeleteIssue(id_issue)
             elif menu == 5:
                 logging.info("Ingreso a la opción de cambio de estado de tareas.")
-                id_issue = int(input("Ingresa el ID del Issue a modificar: ")) 
                 while True: 
                         user_input = input("Ingresa el ID del Issue a modificar: ")
                         if user_input.isdigit():

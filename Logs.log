@@ -1,7 +1,15 @@
-2024-09-09 17:49:27,266 - INFO - Conectando a la base de datos.
-2024-09-09 17:49:27,293 - INFO - Conexión exitosa.
-2024-09-09 17:49:27,294 - INFO - Iniciando la aplicación.
-2024-09-09 17:49:34,958 - INFO - Ingreso a la opción de inicio de sesión.
-2024-09-09 17:49:38,578 - INFO - Inicio de sesión exitoso.
-2024-09-09 17:49:38,578 - INFO - Buscando base de datos llamada 'Tareas'.
-2024-09-09 17:49:38,622 - INFO - Ingreso al menú de tareas.
+2024-09-09 18:13:52,907 - INFO - Conectando a la base de datos.
+2024-09-09 18:13:52,935 - INFO - Conexión exitosa.
+2024-09-09 18:13:52,936 - INFO - Iniciando la aplicación.
+2024-09-09 18:13:54,661 - INFO - Ingreso a la opción de inicio de sesión.
+2024-09-09 18:13:55,568 - INFO - Inicio de sesión exitoso.
+2024-09-09 18:13:55,568 - INFO - Buscando base de datos llamada 'Tareas'.
+2024-09-09 18:13:55,612 - INFO - Ingreso al menú de tareas.
+2024-09-09 18:13:56,932 - INFO - Ingreso a la opción de cambio de estado de tareas.
+2024-09-09 18:13:57,812 - WARNING - Ingreso de ID de tarea no válido en cambio de estado de tareas.
+2024-09-09 18:14:02,487 - WARNING - Ingreso de estado no válido en cambio de estado de tareas.
+2024-09-09 18:14:05,788 - INFO - Ingreso al menú de tareas.
+2024-09-09 18:14:09,131 - INFO - Ingreso a la opción de cambio de estado de tareas.
+2024-09-09 18:14:13,740 - WARNING - Ingreso de estado no válido en cambio de estado de tareas.
+2024-09-09 18:14:27,414 - INFO - Ingreso al menú de tareas.
+2024-09-09 18:14:30,317 - INFO - Salida de la aplicación.
