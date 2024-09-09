@@ -43,10 +43,10 @@ def main():
                 tag = input("Etiqueta: ")
                 try:
                     fecha = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+                    MakeIssue(title,description,fecha,tag)
                 except ValueError: 
                     logging.warning("Formato de fecha usado incorrecto.")
                     print("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.")
-                MakeIssue(title,description,fecha,tag)
             elif menu == 2: 
                 logging.info("Ingreso a la opción de visualización de tareas.")
                 ViewIssue()
@@ -90,6 +90,7 @@ def main():
             elif menu == 5:
                 logging.info("Ingreso a la opción de cambio de estado de tareas.")
                 id_issue = int(input("Ingresa el ID del Issue a modificar: "))
+                
                 new_status = input("Ingresa el estado nuevo de la tarea: ")
                 UpdateIssueStatus(id_issue,new_status)
 

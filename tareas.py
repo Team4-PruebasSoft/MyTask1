@@ -23,14 +23,15 @@ def MakeTareasBD():
         exit()
 
 def MakeIssue(titulo,desc,date,tag): 
-    fecha = date.strftime("%Y-%m-%d")
-    issue_info = [titulo,desc,fecha,tag,"pendiente"] 
     try: 
+        fecha = date.strftime("%Y-%m-%d")
+        issue_info = [titulo,desc,fecha,tag,"pendiente"] 
         cursor.execute("INSERT INTO issues (titulo,descripcion,vencimiento,etiqueta,estado) VALUES (?,?,?,?,?)", issue_info) 
         print("TAREA AGREGADA CORRECTAMENTE") 
     except Exception as ex: 
         logging.error(f"Error al agregar la tarea: {ex}") 
         print("ERROR AL AGREGAR LA TAREA")
+        exit()
 def ViewIssue(): 
     try:
         cursor.execute("SELECT * FROM issues")
