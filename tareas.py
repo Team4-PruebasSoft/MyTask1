@@ -43,63 +43,103 @@ def ViewIssue():
     except Exception as ex:
         logging.error(f"Error al visualizar las tareas: {ex}")
         print("ERROR AL VISUALIZAR LAS TAREAS")
-def UpdateIssueTitle(id_issue,name): 
-    cursor.execute("UPDATE issues SET titulo=? WHERE id_tarea =?", name, id_issue)
+def UpdateIssueTitle(id_issue,name):  
+    try: 
+        cursor.execute("UPDATE issues SET titulo=? WHERE id_tarea =?", name, id_issue)
+    except Exception as ex:
+        logging.error(f"Error al actualizar el titulo de la tarea: {ex}")
+        print("ERROR AL ACTUALIZAR EL TITULO DE LA TAREA")
 
-def UpdateIssueDesc(id_issue,desc):
-    cursor.execute("UPDATE issues SET descripcion=? WHERE id_tarea =?", desc, id_issue)
+def UpdateIssueDesc(id_issue,desc): 
+    try:
+        cursor.execute("UPDATE issues SET descripcion=? WHERE id_tarea =?", desc, id_issue) 
+    except Exception as ex:
+        logging.error(f"Error al actualizar la descripción de la tarea: {ex}")
+        print("ERROR AL ACTUALIZAR LA DESCRIPCION DE LA TAREA")
 
 def UpdateIssueDate(id_issue,date):
-    fecha = date.strftime("%Y-%m-%d")
-    cursor.execute("UPDATE issues SET vencimiento=? WHERE id_tarea =?", fecha, id_issue)
+    fecha = date.strftime("%Y-%m-%d") 
+    try:
+        cursor.execute("UPDATE issues SET vencimiento=? WHERE id_tarea =?", fecha, id_issue)
+    except Exception as ex:
+        logging.error(f"Error al actualizar la fecha de vencimiento de la tarea: {ex}")
+        print("ERROR AL ACTUALIZAR LA FECHA DE VENCIMIENTO DE LA TAREA")
 
-def UpdateIssueTag(id_issue,tag):
-    cursor.execute("UPDATE issues SET etiqueta=? WHERE id_tarea =?", tag, id_issue)
+def UpdateIssueTag(id_issue,tag): 
+    try:
+        cursor.execute("UPDATE issues SET etiqueta=? WHERE id_tarea =?", tag, id_issue)
+    except Exception as ex:
+        logging.error(f"Error al actualizar la etiqueta de la tarea: {ex}")
+        print("ERROR AL ACTUALIZAR LA ETIQUETA DE LA TAREA")
 
-def DeleteIssue(id_issue):
-    cursor.execute("SELECT * FROM issues WHERE id_tarea=?",id_issue)
-    result = cursor.fetchone()
-    if result is not None:
-        cursor.execute("DELETE FROM issues WHERE id_tarea=?", id_issue)
-        print("LA TAREA FUE ELIMINADA CON EXITO")
-    else:
-        print("La tarea con ese ID no existe")
+def DeleteIssue(id_issue): 
+    try:
+        cursor.execute("SELECT * FROM issues WHERE id_tarea=?",id_issue)
+        result = cursor.fetchone()
+        if result is not None:
+            cursor.execute("DELETE FROM issues WHERE id_tarea=?", id_issue)
+            print("LA TAREA FUE ELIMINADA CON EXITO")
+        else:
+            print("La tarea con ese ID no existe") 
+    except Exception as ex:
+        logging.error(f"Error al eliminar la tarea: {ex}")
+        print("ERROR AL ELIMINAR LA TAREA")
 
-def UpdateIssueStatus(id_issue,new_status):
-    cursor.execute("UPDATE issues SET estado=? WHERE id_tarea =?", new_status, id_issue)
+def UpdateIssueStatus(id_issue,new_status): 
+    try:
+        cursor.execute("UPDATE issues SET estado=? WHERE id_tarea =?", new_status, id_issue)
+    except Exception as ex:
+        logging.error(f"Error al actualizar el estado de la tarea: {ex}")
+        print("ERROR AL ACTUALIZAR EL ESTADO DE LA TAREA")
 
-def FilterIssuesByTitle(title):
-    cursor.execute("SELECT * FROM issues WHERE titulo LIKE ?", '%' + title + '%')
-    result = cursor.fetchall()
-    if result:
-        for i in result:
-            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
-    else:
-        print(f"No se encontraron tareas con el título '{title}'")
+def FilterIssuesByTitle(title): 
+    try:
+        cursor.execute("SELECT * FROM issues WHERE titulo LIKE ?", '%' + title + '%')
+        result = cursor.fetchall()
+        if result:
+            for i in result:
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+        else:
+            print(f"No se encontraron tareas con el título '{title}'")
+    except Exception as ex:
+        logging.error(f"Error al filtrar las tareas por título: {ex}")
+        print("ERROR AL FILTRAR LAS TAREAS POR TITULO")
 
-def FilterIssuesByStatus(status):
-    cursor.execute("SELECT * FROM issues WHERE estado=?", status)
-    result = cursor.fetchall()
-    if result:
-        for i in result:
-            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
-    else:
-        print(f"No se encontraron tareas con estado '{status}'")
+def FilterIssuesByStatus(status): 
+    try:
+        cursor.execute("SELECT * FROM issues WHERE estado=?", status)
+        result = cursor.fetchall()
+        if result:
+            for i in result:
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+        else:
+            print(f"No se encontraron tareas con estado '{status}'") 
+    except Exception as ex:
+        logging.error(f"Error al filtrar las tareas por estado: {ex}")
+        print("ERROR AL FILTRAR LAS TAREAS POR ESTADO")
 
-def FilterIssuesByTag(tag):
-    cursor.execute("SELECT * FROM issues WHERE etiqueta=?", tag)
-    result = cursor.fetchall()
-    if result:
-        for i in result:
-            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
-    else:
-        print(f"No se encontraron tareas con la etiqueta '{tag}'")
+def FilterIssuesByTag(tag): 
+    try:
+        cursor.execute("SELECT * FROM issues WHERE etiqueta=?", tag)
+        result = cursor.fetchall()
+        if result:
+            for i in result:
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+        else:
+            print(f"No se encontraron tareas con la etiqueta '{tag}'")
+    except Exception as ex:
+        logging.error(f"Error al filtrar las tareas por etiqueta: {ex}")
+        print("ERROR AL FILTRAR LAS TAREAS POR ETIQUETA")
 
-def FilterIssuesByDateRange(start_date, end_date):
-    cursor.execute("SELECT * FROM issues WHERE vencimiento BETWEEN ? AND ?", start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
-    result = cursor.fetchall()
-    if result:
-        for i in result:
-            print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
-    else:
-        print(f"No se encontraron tareas entre las fechas '{start_date}' y '{end_date}'")
+def FilterIssuesByDateRange(start_date, end_date): 
+    try:
+        cursor.execute("SELECT * FROM issues WHERE vencimiento BETWEEN ? AND ?", start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
+        result = cursor.fetchall()
+        if result:
+            for i in result:
+                print(f"id_tarea: {i[0]}: Titulo: {i[1]}, Descripción: {i[2]}, Fecha de Vencimiento: {i[3]}, Etiqueta: {i[4]}, Estado: {i[5]}.")
+        else:
+            print(f"No se encontraron tareas entre las fechas '{start_date}' y '{end_date}'") 
+    except Exception as ex:
+        logging.error(f"Error al filtrar las tareas por rango de fechas: {ex}")
+        print("ERROR AL FILTRAR LAS TAREAS POR RANGO DE FECHAS")

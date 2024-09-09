@@ -54,27 +54,33 @@ def main():
                 id_issue = int(input("Ingresa el ID del Issue a modificar: "))
                 while True:
                     select = int(input("Selecciona una opcion(1 Titulo, 2 Descripción, 3 Fecha Vencimiento, 4 Tag, 5 Salir): "))
-                    if select == 1:
+                    if select == 1: 
+                        logging.info("Ingreso a la opción de actualización de título de tareas.")
                         title = input("Ingresa el nuevo titulo: ")
                         UpdateIssueTitle(id_issue,title)
                     elif select == 2:
+                        logging.info("Ingreso a la opción de actualización de descripción de tareas.")
                         desc = input("Ingresa nueva descripción: ")
                         UpdateIssueDesc(id_issue,desc)
                     elif select == 3:
+                        logging.info("Ingreso a la opción de actualización de fecha de vencimiento de tareas.")
                         fecha = input("Ingresa nueva fecha de vencimiento(YYYY-MM-DD): ")
                         try:
                             format_fecha = datetime.datetime.strptime(fecha, "%Y-%m-%d").date()
                         except ValueError:
+                            logging.warning("Formato de fecha usado incorrecto en actualización de fecha de vencimiento de tareas.")
                             print("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.")
                         UpdateIssueDate(id_issue,format_fecha)
-                    elif select == 4:
+                    elif select == 4: 
+                        logging.info("Ingreso a la opción de actualización de etiqueta de tareas.")
                         tag = input("Ingresa el nuevo Tag: ")
                         UpdateIssueTag(id_issue,tag)
                     elif select == 5:
+                        logging.info("Salida de la opción de actualización de tareas.")
                         break
                     else:
+                        logging.warning("Ingreso de opción no válida en el menú de actualización de tareas.")
                         print("NUMERO INCORRECTO")
-
             elif menu == 4:
                 logging.info("Ingreso a la opción de eliminación de tareas.")
                 id_issue = int(input("Ingresa el ID de la tarea que deseas eliminar: "))
@@ -90,16 +96,20 @@ def main():
                 logging.info("Ingreso a la opción de búsqueda avanzada.")
                 while True:
                     filter_option = int(input("Selecciona una opción para filtrar las tareas (1 para filtrar por título, 2 por estado, 3 por etiqueta, 4 por rango de fechas, 5 para salir): "))
-                    if filter_option == 1:
+                    if filter_option == 1: 
+                        logging.info("Ingreso a la opción de filtrar por título.")
                         title = input("Ingrese el título de la tarea a buscar: ")
                         FilterIssuesByTitle(title)
                     elif filter_option == 2:
+                        logging.info("Ingreso a la opción de filtrar por estado.")
                         status = input("Ingrese el estado de la tarea (pendiente, en progreso, completada): ")
                         FilterIssuesByStatus(status)
                     elif filter_option == 3:
+                        logging.info("Ingreso a la opción de filtrar por etiqueta.")
                         tag = input("Ingrese la etiqueta: ")
                         FilterIssuesByTag(tag)
-                    elif filter_option == 4:
+                    elif filter_option == 4: 
+                        logging.info("Ingreso a la opción de filtrar por rango de fechas.")
                         start_date = input("Ingrese la fecha de inicio del rango (YYYY-MM-DD): ")
                         end_date = input("Ingrese la fecha de fin del rango (YYYY-MM-DD): ")
                         try:
@@ -107,10 +117,13 @@ def main():
                             format_end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
                             FilterIssuesByDateRange(format_start_date, format_end_date)
                         except ValueError:
+                            logging.warning("Formato de fecha usado incorrecto en filtrado por rango de fechas.")
                             print("Formato de fecha incorrecto. Use el formato YYYY-MM-DD.")
                     elif filter_option == 5:
+                        logging.info("Salida de la opción de búsqueda avanzada.")
                         break
                     else:
+                        logging.warning("Ingreso de opción no válida en el menú de búsqueda avanzada.")
                         print("Opción no válida, inténtelo de nuevo.")
 
             elif menu == 7: 
